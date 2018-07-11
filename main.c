@@ -25,7 +25,7 @@ void input(struct employee *emp,FILE *fp)
 
 	printf("Name\n");
 	scanf("%s",emp->name);
-	fprintf(fp,"%s|",emp->name );
+	fprintf(fp," %s|",emp->name );
 
 	printf("Phone No.\n");
   scanf("%s",emp->phone);
@@ -71,7 +71,7 @@ void input(struct employee *emp,FILE *fp)
   	printf("Written Successfully");
   else
   	printf("Error/n");*/
-  //fclose(fp);
+  fclose(fp);
 }
 
 
@@ -85,7 +85,9 @@ void read(struct employee *emp,FILE *fp)
 		fprintf(stderr,"\nError opend file\n");
 		exit(1);
 	}
-
+	int c;
+	while ((c = fgetc(fp)) != EOF)
+	{
 	fscanf(fp,"%[^|]|s",emp->name);
 	printf("Name:%s\n",emp->name);
 
@@ -112,7 +114,10 @@ void read(struct employee *emp,FILE *fp)
 
 	fscanf(fp,"%[^|]|s",emp->income);
 	printf("Income:%s\n",emp->income);
+	if((c = fgetc(fp)) == EOF)
+	break;
 
+	}
 
 	fclose(fp);
 }
