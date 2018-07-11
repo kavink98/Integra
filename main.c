@@ -23,7 +23,8 @@ void input(struct employee *emp,FILE *fp)
 
 	printf("Enter the following details\n");
 
-	printf("Name\n");
+	printf("Name\n");fflush(stdout);
+	getchar();
 	scanf("%[^\n]s",emp->name);
 	fprintf(fp," %s|",emp->name );
 
@@ -38,12 +39,13 @@ void input(struct employee *emp,FILE *fp)
 	printf("Date of Birth in DD MM YYYY format\n");
 	scanf("%s%s%s",emp->dob.dd,emp->dob.mm,emp->dob.yy);
 	fprintf(fp,"%s|%s|%s|",(emp->dob.dd),(emp->dob.mm),(emp->dob.yy));
-
+	getchar();
   printf("Address \n");
   scanf("%[^\n]s",emp->address);
 	fprintf(fp,"%s|",emp->address );
 
-  printf("Occupation \n");
+	getchar();
+	printf("Occupation \n");
   scanf("%[^\n]s",emp->occupation);
 	fprintf(fp,"%s|",emp->occupation );
 
