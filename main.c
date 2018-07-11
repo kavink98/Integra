@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 struct employee
 {
 	char name[25],address[50],phone[11],email[25],occupation[15],aadhar[13],birthplace[15],m_status[10],income[10];
@@ -13,7 +14,7 @@ struct employee
 
 void input(struct employee *emp,FILE *fp)
 {
-	int flag,a;
+	int flag,a,err=1;
   fp = fopen("emp.dat","a");
 	if (fp==NULL)
 		{
@@ -22,12 +23,24 @@ void input(struct employee *emp,FILE *fp)
     }
 
 	printf("Enter the following details\n");
-
-	printf("Name\n");fflush(stdout);
-	getchar();
-	scanf("%[^\n]s",emp->name);
+	while(err==1)
+	{
+		printf("Name\n");
+		getchar();
+		scanf("%[^\n]s",emp->name);
+		for(int i=0;i<strlen(emp->name);i++)
+		{
+			if(isalpha(emp->name[i])==0&&emp->name[i]!=32)
+			{
+				err = 1;
+				printf("Enter a valid name\n");
+				break;
+			}
+			else
+			err = 0;
+		}
+	}
 	fprintf(fp," %s|",emp->name );
-
 	printf("Phone No.\n");
   scanf("%s",emp->phone);
 	fprintf(fp,"%s|",emp->phone );
@@ -59,16 +72,28 @@ void input(struct employee *emp,FILE *fp)
 	strcpy(emp->m_status,"Divorced");
 	fprintf(fp,"%s|",emp->m_status );
 
-	printf("Annual Income\n");
-	scanf("%s",(emp->income));
-	fprintf(fp,"%s|",emp->income );
+	err = 1;
 
+	while(err==1)
+	{
+		printf("Annual Income\n");
+		scanf("%s",(emp->income));
+		for(int i=0;i<strlen(emp->income);i++)
+		{
+			if(isalpha(emp->income[i])!=0)
+			{
+				printf("Enter valid input\n");
+				break;
+			}
+			else
+			err = 0;
+		}
+
+	}
+	fprintf(fp,"%s|",emp->income );
 	fprintf(fp,"\n");
 	printf("Written Succesfully\n");
-
-
-
-  fclose(fp);
+	fclose(fp);
 }
 
 
