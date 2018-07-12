@@ -24,7 +24,7 @@ int verifyphone(char *phone)
   int flag;
   for(int i=0;i<strlen(phone);i++)
   {
-    if(isalpha(phone[i])!=0)
+    if(isdigit(phone[i])==0)
     {
       flag = 1;
       break;
@@ -76,7 +76,7 @@ int verifyincome(char *income)
   int flag;
   for(int i=0;i<strlen(income);i++)
   {
-    if(isalpha(income[i])!=0)
+    if(isdigit(income[i])==0)
     {
       printf("Enter valid input\n");
       flag = 1 ;
