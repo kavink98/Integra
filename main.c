@@ -5,6 +5,17 @@
 #include <time.h>
 #include "verification.h"
 
+int findLines(FILE *fp)
+{
+    fp = fopen("emp.dat","r");
+    fseek(fp,0,SEEK_END);
+		int numlines = (int)(ftell(fp)/200);
+    printf("No. of lines:%d\n",numlines);
+    fclose(fp);
+		return numlines;
+}
+
+
 struct employee
 {
 	char name[25],address[50],phone[11],email[25],occupation[15],aadhar[13],birthplace[15],m_status[10],income[10];
@@ -85,7 +96,7 @@ void input(struct employee *emp,FILE *fp)
     {
         fprintf(fp,"%c",buf);
     }
-    
+
 	fprintf(fp,"\n");
 	printf("Written Succesfully %ld bytes\n",ftell(fp));
 	fclose(fp);
@@ -95,6 +106,7 @@ void input(struct employee *emp,FILE *fp)
 void read(struct employee *emp,FILE *fp)
 {
 
+	int numlines = findLines(fp);
 	fp = fopen("emp.dat","r");//Opening file in read mode
 
 	if (fp==NULL)
@@ -103,8 +115,9 @@ void read(struct employee *emp,FILE *fp)
 		exit(1);
 	}
 	int c;
-	while ((c = fgetc(fp)) != EOF)
+	for(int i=0;i<numlines;i++)
 	{
+		fseek(fp,i*200,SEEK_SET);
 		fscanf(fp,"%[^|]|s",emp->name);
 		printf("Name:%s\n",emp->name);
 
@@ -138,13 +151,6 @@ void read(struct employee *emp,FILE *fp)
 	fclose(fp);
 }
 
-void findLines(FILE *fp)
-{
-    fp = fopen("emp.dat","r");
-    fseek(fp,0,SEEK_END);
-    printf("No. of lines:%ld\n",ftell(fp)/200);
-    fclose(fp);
-}
 
 void main()
 {
@@ -166,7 +172,7 @@ void main()
 	}
 
 	else
-    {    
+    {
         findLines(fp);
         exit(0);
     }
