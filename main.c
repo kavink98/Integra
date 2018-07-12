@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <time.h>
+#include "verification.h"
+
 struct employee
 {
 	char name[25],address[50],phone[11],email[25],occupation[15],aadhar[13],birthplace[15],m_status[10],income[10];
@@ -10,59 +13,57 @@ struct employee
 	{
 		char dd[3],mm[3],yy[5];
 	} dob;
-};
+};//Declaring structure
 
 void input(struct employee *emp,FILE *fp)
 {
-	int flag,a,err=1;
+	int flag,a,err;
   fp = fopen("emp.dat","a");
 	if (fp==NULL)
 		{
-			fprintf(stderr,"\nError opend file\n");
+			fprintf(stderr,"\nError opend file\n");//Opening file in write and append mode
 			exit(1);
     }
 
 	printf("Enter the following details\n");
-	while(err==1)
+
+	do//Inputting name
 	{
 		printf("Name\n");
 		getchar();
 		scanf("%[^\n]s",emp->name);
-		for(int i=0;i<strlen(emp->name);i++)
-		{
-			if(isalpha(emp->name[i])==0&&emp->name[i]!=32)
-			{
-				err = 1;
-				printf("Enter a valid name\n");
-				break;
-			}
-			else
-			err = 0;
-		}
-	}
+	}while(verifyname(emp->name));
 	fprintf(fp," %s|",emp->name );
-	printf("Phone No.\n");
-  scanf("%s",emp->phone);
+
+	do//Inputting phone number
+	{
+		printf("Phone No.\n");
+  	scanf("%s",emp->phone);
+	}while(verifyphone(emp->phone));
 	fprintf(fp,"%s|",emp->phone );
 
-  printf("Aadhar no.\n");
+	printf("Aadhar no.\n");//INputting Aadhar Number
   scanf("%s",emp->aadhar);
 	fprintf(fp,"%s|",emp->aadhar );
 
-	printf("Date of Birth in DD MM YYYY format\n");
-	scanf("%s%s%s",emp->dob.dd,emp->dob.mm,emp->dob.yy);
+	do
+	{
+		printf("Date of Birth in DD MM YYYY format\n");//INputting dob
+		scanf("%s%s%s",emp->dob.dd,emp->dob.mm,emp->dob.yy);
+	}while(verifydate(emp->dob.dd,emp->dob.mm,emp->dob.yy));
 	fprintf(fp,"%s|%s|%s|",(emp->dob.dd),(emp->dob.mm),(emp->dob.yy));
+
 	getchar();
-  printf("Address \n");
+  printf("Address \n");//Inputting address
   scanf("%[^\n]s",emp->address);
 	fprintf(fp,"%s|",emp->address );
 
 	getchar();
-	printf("Occupation \n");
+	printf("Occupation \n");//Inputting occupation
   scanf("%[^\n]s",emp->occupation);
 	fprintf(fp,"%s|",emp->occupation );
 
-	printf("Marital status\n1.Single\n2.Married\n3.Divorced\n");
+	printf("Marital status\n1.Single\n2.Married\n3.Divorced\n");//Inputting Marital status
 	scanf("%d",&a );
 	if(a==1)
 	strcpy(emp->m_status,"Single");
@@ -72,25 +73,13 @@ void input(struct employee *emp,FILE *fp)
 	strcpy(emp->m_status,"Divorced");
 	fprintf(fp,"%s|",emp->m_status );
 
-	err = 1;
-
-	while(err==1)
+	do//INputting annual income
 	{
 		printf("Annual Income\n");
 		scanf("%s",(emp->income));
-		for(int i=0;i<strlen(emp->income);i++)
-		{
-			if(isalpha(emp->income[i])!=0)
-			{
-				printf("Enter valid input\n");
-				break;
-			}
-			else
-			err = 0;
-		}
-
-	}
+	}while(verifyincome(emp->income));
 	fprintf(fp,"%s|",emp->income );
+
 	fprintf(fp,"\n");
 	printf("Written Succesfully\n");
 	fclose(fp);
@@ -100,7 +89,7 @@ void input(struct employee *emp,FILE *fp)
 void read(struct employee *emp,FILE *fp)
 {
 
-	fp = fopen("emp.dat","r");
+	fp = fopen("emp.dat","r");//Opening file in read mode
 
 	if (fp==NULL)
 	{
@@ -145,14 +134,14 @@ void read(struct employee *emp,FILE *fp)
 void main()
 {
 	FILE *fp;
-	printf("Enter 1 for input and 2 for read");
+	printf("Enter 1 for input and 2 for read\n");
 	int choice;
 	scanf("%d",&choice);
 	struct employee emp;
 	while(choice==1)
 	{
 		input(&emp,fp);
-		printf("Do you want to continue inputting");
+		printf("Do you want to continue inputting\n1.Continue\n2.read file\n3.Exit\n");
 		scanf("%d",&choice);
 	}
 

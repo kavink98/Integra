@@ -1,9 +1,8 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
-void main()
-{
-  char str1[20];
-  printf("Enter \n");
-  scanf("%[^\n]s",str1);
-  printf("%s",str1);
-}
+int main() {
+    char e[10] = "987654321";
+    printf("%d",(e[0]-'0'));
+  }
