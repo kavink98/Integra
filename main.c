@@ -17,8 +17,9 @@ struct employee
 
 void input(struct employee *emp,FILE *fp)
 {
-	int flag,a,err;
-  fp = fopen("emp.dat","a");
+	int n,marital,err;
+    char buf=' ';
+    fp = fopen("emp.dat","a");
 	if (fp==NULL)
 		{
 			fprintf(stderr,"\nError opend file\n");//Opening file in write and append mode
@@ -43,7 +44,7 @@ void input(struct employee *emp,FILE *fp)
 	fprintf(fp,"%s|",emp->phone );
 
 	printf("Aadhar no.\n");//INputting Aadhar Number
-  scanf("%s",emp->aadhar);
+    scanf("%s",emp->aadhar);
 	fprintf(fp,"%s|",emp->aadhar );
 
 	do
@@ -54,22 +55,22 @@ void input(struct employee *emp,FILE *fp)
 	fprintf(fp,"%s|%s|%s|",(emp->dob.dd),(emp->dob.mm),(emp->dob.yy));
 
 	getchar();
-  printf("Address \n");//Inputting address
-  scanf("%[^\n]s",emp->address);
+    printf("Address \n");//Inputting address
+    scanf("%[^\n]s",emp->address);
 	fprintf(fp,"%s|",emp->address );
 
 	getchar();
 	printf("Occupation \n");//Inputting occupation
-  scanf("%[^\n]s",emp->occupation);
+    scanf("%[^\n]s",emp->occupation);
 	fprintf(fp,"%s|",emp->occupation );
 
 	printf("Marital status\n1.Single\n2.Married\n3.Divorced\n");//Inputting Marital status
-	scanf("%d",&a );
-	if(a==1)
+	scanf("%d",&marital);
+	if(marital==1)
 	strcpy(emp->m_status,"Single");
-	else if(a==2)
+	else if(marital==2)
 	strcpy(emp->m_status,"Married");
-	else if(a==3)
+	else if(marital==3)
 	strcpy(emp->m_status,"Divorced");
 	fprintf(fp,"%s|",emp->m_status );
 
@@ -80,8 +81,13 @@ void input(struct employee *emp,FILE *fp)
 	}while(verifyincome(emp->income));
 	fprintf(fp,"%s|",emp->income );
 
+    while((n=(ftell(fp)%200))!=199)
+    {
+        fprintf(fp,"%c",buf);
+    }
+    
 	fprintf(fp,"\n");
-	printf("Written Succesfully\n");
+	printf("Written Succesfully %ld bytes\n",ftell(fp));
 	fclose(fp);
 }
 
@@ -131,6 +137,15 @@ void read(struct employee *emp,FILE *fp)
 
 	fclose(fp);
 }
+
+void findLines(FILE *fp)
+{
+    fp = fopen("emp.dat","r");
+    fseek(fp,0,SEEK_END);
+    printf("No. of lines:%ld\n",ftell(fp)/200);
+    fclose(fp);
+}
+
 void main()
 {
 	FILE *fp;
@@ -151,5 +166,8 @@ void main()
 	}
 
 	else
-		exit(0);
+    {    
+        findLines(fp);
+        exit(0);
+    }
 }
