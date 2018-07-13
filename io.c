@@ -4,16 +4,7 @@
 #include <ctype.h>
 #include <time.h>
 #include "verification.h"
-
-struct employee
-{
-	char name[25],address[50],phone[11],email[25],occupation[15],aadhar[13],birthplace[15],m_status[10],income[10];
-	int code;
-	struct date
-	{
-		char dd[3],mm[3],yy[5];
-	} dob;
-};//Declaring structure
+#include "io.h"
 
 int findLines(FILE *fp)
 {
@@ -118,6 +109,7 @@ void read(struct employee *emp,FILE *fp)
 	int c;
 	for(int i=0;i<numlines;i++)
 	{
+		printf("record number %d:\n",i+1);
 		fseek(fp,i*200,SEEK_SET);
 		fscanf(fp,"%[^|]|s",emp->name);
 		printf("Name:%s\n",emp->name);
@@ -208,5 +200,134 @@ void search(struct employee *emp,FILE *fp)
 	}
   if(found == 0)
   printf("Record not found\n");
+	fclose(fp);
+}
+
+void modify(struct employee *emp,FILE *fp)
+{
+	int n,marital,rec,entry;
+    char buf=' ';
+    fp = fopen("emp.dat","r+");
+	if (fp==NULL)
+		{
+			fprintf(stderr,"\nError opend file\n");
+			exit(1);
+    }
+
+	printf("enter record to be modified\n");
+	scanf("%d",&rec);
+	fseek(fp,(rec*200),SEEK_SET);
+	fscanf(fp,"%[^|]|s",emp->name);
+
+	fscanf(fp,"%[^|]|s",emp->phone);
+
+	fscanf(fp,"%[^|]|s",emp->aadhar);
+
+	fscanf(fp,"%[^|]|s",emp->dob.dd);
+	fscanf(fp,"%[^|]|s",emp->dob.mm);
+	fscanf(fp,"%[^|]|s",emp->dob.yy);
+
+	fscanf(fp,"%[^|]|s",emp->address);
+
+	fscanf(fp,"%[^|]|s",emp->occupation);
+
+	fscanf(fp,"%[^|]|s",emp->m_status);
+
+	fscanf(fp,"%[^|]|s",emp->income);
+
+	read(emp,fp);
+	printf("What do you want to modify\n1.Name\n2.Phone\n3.Aadhar\n4.DOb\n5.Address\n.6.Occupation\n7.Marital Status\n8.Income\n");
+	scanf("%d",&entry);
+
+	printf("Enter the following details\n");
+
+
+	if(entry ==1)
+	{
+		do//Inputting name
+		{
+			printf("Name\n");
+			getchar();
+			scanf("%[^\n]s",emp->name);
+		}while(verifyname(emp->name));
+	}
+
+	else if(entry == 2)
+	{
+		do//Inputting phone number
+		{
+			printf("Phone No.\n");
+  		scanf("%s",emp->phone);
+		}while(verifyphone(emp->phone));
+	}
+
+	else if(entry == 3)
+	{
+		printf("Aadhar no.\n");//INputting Aadhar Number
+  	scanf("%s",emp->aadhar);
+	}
+
+	else if(entry == 4)
+	{
+		do
+		{
+			printf("Date of Birth in DD MM YYYY format\n");//INputting dob
+			scanf("%s%s%s",emp->dob.dd,emp->dob.mm,emp->dob.yy);
+		}while(verifydate(emp->dob.dd,emp->dob.mm,emp->dob.yy));
+	}
+
+	else if(entry == 5)
+	{
+		getchar();
+  	printf("Address \n");//Inputting address
+  	scanf("%[^\n]s",emp->address);
+	}
+
+	else if(entry == 6)
+	{
+		getchar();
+		printf("Occupation \n");//Inputting occupation
+  	scanf("%[^\n]s",emp->occupation);
+	}
+
+	else if(entry == 7)
+	{
+		printf("Marital status\n1.Single\n2.Married\n3.Divorced\n");//Inputting Marital status
+		scanf("%d",&marital);
+		if(marital==1)
+		strcpy(emp->m_status,"Single");
+		else if(marital==2)
+		strcpy(emp->m_status,"Married");
+		else if(marital==3)
+		strcpy(emp->m_status,"Divorced");
+  	else
+  	strcpy(emp->m_status,"NA");
+	}
+
+	else if(entry == 8)
+	{
+		do//INputting annual income
+		{
+			printf("Annual Income\n");
+			scanf("%s",(emp->income));
+		}while(verifyincome(emp->income));
+	}
+	fseek(fp,(rec*200),SEEK_SET);
+	printf("%s",emp->name);
+	fprintf(fp,"%s|",emp->name );
+	fprintf(fp,"%s|",emp->phone );
+	fprintf(fp,"%s|",emp->aadhar );
+	fprintf(fp,"%s|%s|%s|",(emp->dob.dd),(emp->dob.mm),(emp->dob.yy));
+	fprintf(fp,"%s|",emp->address );
+	fprintf(fp,"%s|",emp->occupation );
+	fprintf(fp,"%s|",emp->m_status );
+	fprintf(fp,"%s|",emp->income );
+		while((n=(ftell(fp)%200))!=199)
+    {
+        fprintf(fp,"%c",buf);
+    }
+
+	fprintf(fp,"\n");
+	printf("Written Succesfully %ld bytes\n",ftell(fp));
 	fclose(fp);
 }

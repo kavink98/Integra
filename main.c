@@ -6,20 +6,10 @@
 #include "verification.h"
 #include "io.h"
 
-struct employee
-{
-	char name[25],address[50],phone[11],email[25],occupation[15],aadhar[13],birthplace[15],m_status[10],income[10];
-	int code;
-	struct date
-	{
-		char dd[3],mm[3],yy[5];
-	} dob;
-};//Declaring structure
-
 void main()
 {
 	FILE *fp;
-	printf("Enter 1 for input,2 for read and 3 for search\n");
+	printf("What do you want to do\n1.Input\n2.read file\n3.Search\n4.Mdify\n5.Exit\n");
 	int choice;
 	scanf("%d",&choice);
 	struct employee emp;
@@ -36,15 +26,18 @@ void main()
     else if(choice == 3)
     search(&emp,fp);
 
-    else if(choice == 4)
+		else if(choice == 4)
+		modify(&emp,fp);
+
+		else if(choice == 5)
     {
         findLines(fp);
-        exit(0);
+        break;
     }
     else
     printf("ENter Valid Input\n");
-    
-    printf("Do you want to continue inputting\n1.Continue\n2.read file\n3.Search\n4.Exit\n");
+
+    printf("What do you want to do\n1.Input\n2.read file\n3.Search\n4.Mdify\n5.Exit\n");
 		scanf("%d",&choice);
   }
 }
