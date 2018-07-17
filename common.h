@@ -1,3 +1,9 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <time.h>
+
 #define FILE_NAME "emp.dat"
 
 FILE *fp;
@@ -18,3 +24,7 @@ void input(struct employee *emp);
 void read(struct employee *emp);
 void search(struct employee *emp);
 void modify(struct employee *emp);
+
+void swap(struct employee *, struct employee *);
+void bubbleSort();
+void push(struct employee *);

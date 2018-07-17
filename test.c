@@ -3,6 +3,15 @@
 #include <stdlib.h>
 
 int main() {
-    char e[10] = "987654321";
-    printf("%d",(e[0]-'0'));
+  struct x
+  {
+    int z,y;
+  };
+
+  struct x a,b;
+  a.z = 10;
+  a.y = 11;
+  b = a ;
+  printf("%d\n%d\n",b.z,b.y);
+
   }
