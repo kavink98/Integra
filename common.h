@@ -21,9 +21,12 @@ struct employee
 
 int findLines();
 void input(struct employee *emp);
+void write(struct employee *emp);
 void read(struct employee *emp);
 void search(struct employee *emp);
 void modify(struct employee *emp);
+void displayLine(struct employee *emp);
+void readLine(struct employee *emp);
 
 void swap(struct employee *, struct employee *);
 void bubbleSort();

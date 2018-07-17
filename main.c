@@ -22,8 +22,8 @@ void main()
         else if(choice == 4)
             modify(&emp);
 
-        else if(choice == 5)
-            sort(&emp);
+      //  else if(choice == 5)
+  			
 
 
         else if(choice == 6)
