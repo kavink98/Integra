@@ -10,6 +10,7 @@ struct employee
 	{
 		char dd[3],mm[3],yy[5];
 	} dob;
+	struct employee *next;
 };
 
 int findLines();
