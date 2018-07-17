@@ -1,4 +1,4 @@
-#define FILE_NAME "/home/kavin/Integra/emp.dat"
+#define FILE_NAME "emp.dat"
 
 FILE *fp;
 
