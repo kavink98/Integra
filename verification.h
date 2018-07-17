@@ -1,4 +1,4 @@
-int verifyname(char *);
-int verifyphone(char *);
-int verifydate(char *,char *,char *);
-int verifyincome(char *);
+int verifyName(char *);
+int verifyPhone(char *);
+int verifyDate(char *,char *,char *);
+int verifyIncome(char *);

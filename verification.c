@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <time.h>
-int verifyname(char *name)
+int verifyName(char *name)
 {
   int flag;
   for(int i=0;name[i]!='\0';i++)
@@ -19,7 +19,7 @@ int verifyname(char *name)
   }
   return flag;
 }
-int verifyphone(char *phone)
+int verifyPhone(char *phone)
 {
   int flag;
   for(int i=0;i<strlen(phone);i++)
@@ -46,7 +46,7 @@ int verifyphone(char *phone)
 
 }
 
-int verifydate(char *dd,char *mm,char *yy)
+int verifyDate(char *dd,char *mm,char *yy)
 {
   int flag;
   time_t t = time(NULL);
@@ -71,7 +71,7 @@ int verifydate(char *dd,char *mm,char *yy)
   return flag;
 }
 
-int verifyincome(char *income)
+int verifyIncome(char *income)
 {
   int flag;
   for(int i=0;i<strlen(income);i++)
@@ -87,3 +87,4 @@ int verifyincome(char *income)
   }
   return flag;
 }
+
