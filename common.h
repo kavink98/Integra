@@ -18,6 +18,7 @@ struct employee
 	} dob;
 	struct employee *next;
 };
+struct employee *head;
 
 int findLines();
 void input(struct employee *emp);
@@ -27,7 +28,9 @@ void search(struct employee *emp);
 void modify(struct employee *emp);
 void displayLine(struct employee *emp);
 void readLine(struct employee *emp);
+void sort(struct employee *emp);
 
+void init();
 void swap(struct employee *, struct employee *);
 void bubbleSort();
 void push(struct employee *);

@@ -7,7 +7,7 @@ void main()
 	struct employee emp;
 	while(1)
 	{
-        printf("What do you want to do\n1.Input\n2.Read file\n3.Search\n4.Modify\n5.Exit\n");
+        printf("What do you want to do\n1.Input\n2.Read file\n3.Search\n4.Modify\n5.Sort\n6.Exit\n");
         scanf("%d",&choice);
 
         if(choice==1)
@@ -22,8 +22,8 @@ void main()
         else if(choice == 4)
             modify(&emp);
 
-      //  else if(choice == 5)
-  			
+        else if(choice == 5)
+  			sort(&emp);
 
 
         else if(choice == 6)

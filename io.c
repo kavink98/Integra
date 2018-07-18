@@ -115,7 +115,7 @@ void write(struct employee *emp)
 			fprintf(stderr,"\nError opend file\n");//Opening file in write and append mode
 			exit(1);
     }
-
+    printf("%ld",ftell(fp));
     fprintf(fp,"%s|",emp->name );
     fprintf(fp,"%s|",emp->phone );
     fprintf(fp,"%s|",emp->aadhar );
@@ -305,28 +305,36 @@ void modify(struct employee *emp)
 	fclose(fp);
 }
 
-/*void sort(struct employee* emp)
+void sort(struct employee* emp)
 {
-    int numLines; 
-    numLines = findLines(emp);
-    fp = fopen(FILE_NAME,"r");//Opening file in read mode
+    int numLines;
+    struct employee *curr;
+    numLines = findLines();
+    fp = fopen("emp.dat","r+");//Opening file in read mode
 
-	if (fp==NULL)
+    if (fp==NULL)
 	{
 		fprintf(stderr,"\nError opening file\n");
 		exit(1);
 	}
     
-	for(int i=0;i<numlines;i++)
+	for(int i=0;i<numLines;i++)
 	{
 		fseek(fp,i*200,SEEK_SET);
+        init();
         readLine(emp);
         push(emp);
         fgetc(fp);
 	}
-        bubbleSort();
+    bubbleSort();
 
+    curr = head;
+    
+    do 
+    {
+        write(curr);
+        curr = curr->next;
+    }while (curr->next!=NULL);
 	fclose(fp);
     
 }
-*/
