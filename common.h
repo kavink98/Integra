@@ -33,4 +33,5 @@ void sort(struct employee *emp);
 void init();
 void swap(struct employee *, struct employee *);
 void bubbleSort();
+void bubbleSortName();
 void push(struct employee *);

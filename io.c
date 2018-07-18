@@ -48,7 +48,7 @@ int findLines()
 void input(struct employee *emp)
 {
 	int n,marital,err;
-    
+
     fp = fopen(FILE_NAME,"a");
 	printf("Enter the following details\n");
 
@@ -58,7 +58,7 @@ void input(struct employee *emp)
 		getchar();
 		scanf("%[^\n]s",emp->name);
 	}while(verifyName(emp->name));
-	
+
 	do//Inputting phone number
 	{
 		printf("Phone No.\n");
@@ -67,7 +67,7 @@ void input(struct employee *emp)
 
 	printf("Aadhar no.\n");//INputting Aadhar Number
     scanf("%s",emp->aadhar);
-	
+
 	do
 	{
 		printf("Date of Birth in DD MM YYYY format\n");//INputting dob
@@ -99,9 +99,9 @@ void input(struct employee *emp)
 		printf("Annual Income\n");
 		scanf("%s",(emp->income));
 	}while(verifyIncome(emp->income));
-    
+
     write(emp);
-    
+
     fclose(fp);
 
 }
@@ -150,7 +150,7 @@ void read(struct employee *emp)
 	{
 		printf("Record number %d:\n",i+1);
 		fseek(fp,i*200,SEEK_SET);
-        readLine(emp);  
+        readLine(emp);
         displayLine(emp);
 		c = fgetc(fp);
 	}
@@ -192,9 +192,9 @@ void search(struct employee *emp)
             fseek(fp,i*200,SEEK_SET);
             readLine(emp);
             displayLine(emp);
-            
+
         }
-        else 
+        else
             found=0;
 
         c = fgetc(fp);
@@ -222,7 +222,7 @@ void modify(struct employee *emp)
 	fseek(fp,(--rec)*200,SEEK_SET);
     readLine(emp);
     displayLine(emp);
-    
+
 	printf("What do you want to modify\n1.Name\n2.Phone\n3.Aadhar\n4.DOb\n5.Address\n.6.Occupation\n7.Marital Status\n8.Income\n");
 	scanf("%d",&entry);
 
@@ -301,13 +301,13 @@ void modify(struct employee *emp)
 	}
 	fseek(fp,(rec*200),SEEK_SET);
     write(emp);
-    
+
 	fclose(fp);
 }
 
 void sort(struct employee* emp)
 {
-    int numLines;
+    int numLines,choice;
     struct employee *curr;
     numLines = findLines();
     fp = fopen("emp.dat","r+");//Opening file in read mode
@@ -317,24 +317,47 @@ void sort(struct employee* emp)
 		fprintf(stderr,"\nError opening file\n");
 		exit(1);
 	}
-    
+  init();
 	for(int i=0;i<numLines;i++)
 	{
 		fseek(fp,i*200,SEEK_SET);
-        init();
+
         readLine(emp);
         push(emp);
         fgetc(fp);
-	}
-    bubbleSort();
-
-    curr = head;
-    
-    do 
+  }
+  printf("1.Sort by phone\n" );
+  printf("2.Sort by name\n" );
+  scanf("%d",&choice);
+    if(choice == 1)
     {
-        write(curr);
-        curr = curr->next;
-    }while (curr->next!=NULL);
+      printf("Sorting by Phone\n");
+      bubbleSort();
+      curr = head;
+
+      fseek(fp,0,SEEK_SET);
+      do
+      {
+
+          write(curr);
+          curr = curr->next;
+      }while (curr!=NULL);
+    }
+    else if(choice == 2)
+    {
+      printf("Sorting by name\n");
+      bubbleSortName();
+      curr = head;
+
+      fseek(fp,0,SEEK_SET);
+      do
+      {
+
+          write(curr);
+          curr = curr->next;
+      }while (curr!=NULL);
+    }
+
 	fclose(fp);
-    
+
 }
