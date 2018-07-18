@@ -130,7 +130,7 @@ void write(struct employee *emp)
     }
 
 	fprintf(fp,"\n");
-	printf("Written Succesfully %ld bytes\n",ftell(fp));
+	//printf("Written Succesfully %ld bytes\n",ftell(fp));
 
 }
 
@@ -357,7 +357,7 @@ void sort(struct employee* emp)
           curr = curr->next;
       }while (curr!=NULL);
     }
-
+  freeList();
 	fclose(fp);
 
 }

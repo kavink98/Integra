@@ -12,7 +12,6 @@ void push(struct employee *emp)
     *p = *emp;
     p->next = head;
     head = p;
-    printf("%s",head->name);
 }
 
 void bubbleSort()
@@ -24,15 +23,13 @@ void bubbleSort()
     /* Checking for empty list */
     if (head == NULL)
         return;
-
     do
     {
         swapped = 0;
         ptr1 = head;
-
         while (ptr1->next != lptr)
         {
-            if (atoi(ptr1->phone) > atoi(ptr1->next->phone))
+            if (strcmp(ptr1->phone,ptr1->next->phone)>0)
             {
                 swap(ptr1, ptr1->next);
                 swapped = 1;
@@ -46,48 +43,17 @@ void bubbleSort()
 
 void swap(struct employee *a, struct employee *b)
 {
-    char temp[50];
-    strcpy(temp,a->name);
-    strcpy(a->name,b->name);
-    strcpy(b->name,temp);
+    struct employee* temp1;
+    struct employee* temp2;
+    struct employee temp3;
+    temp1 = a->next;
+    temp2 = b->next;
+    temp3 = *a;
+    *a = *b;
+    *b = temp3;
 
-    strcpy(temp,a->phone);
-    strcpy(a->phone,b->phone);
-    strcpy(b->phone,temp);
-
-    strcpy(temp,a->aadhar);
-    strcpy(a->aadhar,b->aadhar);
-    strcpy(b->aadhar,temp);
-
-    strcpy(temp,a->dob.dd);
-    strcpy(a->dob.dd,b->dob.dd);
-    strcpy(b->dob.dd,temp);
-
-    strcpy(temp,a->dob.mm);
-    strcpy(a->dob.mm,b->dob.mm);
-    strcpy(b->dob.mm,temp);
-
-    strcpy(temp,a->dob.yy);
-    strcpy(a->dob.yy,b->dob.yy);
-    strcpy(b->dob.yy,temp);
-
-    strcpy(temp,a->address);
-    strcpy(a->address,b->address);
-    strcpy(b->address,temp);
-
-    strcpy(temp,a->occupation);
-    strcpy(a->occupation,b->occupation);
-    strcpy(b->occupation,temp);
-
-    strcpy(temp,a->m_status);
-    strcpy(a->m_status,b->m_status);
-    strcpy(b->m_status,temp);
-
-    strcpy(temp,a->income);
-    strcpy(a->income,b->income);
-    strcpy(b->income,temp);
-
-
+    a->next = temp1;
+    b->next = temp2;
 
 }
 
@@ -109,8 +75,8 @@ void bubbleSortName()
 
     /* Checking for empty list */
     if (head == NULL)
-        return;
 
+        return;
     do
     {
         swapped = 0;
@@ -128,4 +94,5 @@ void bubbleSortName()
         lptr = ptr1;
     }
     while (swapped);
+
 }
