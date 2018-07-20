@@ -5,7 +5,6 @@
 #include <time.h>
 
 #define FILE_NAME "emp.dat"
-
 FILE *fp;
 
 struct employee
@@ -29,10 +28,12 @@ void modify(struct employee *emp);
 void displayLine(struct employee *emp);
 void readLine(struct employee *emp);
 void sort(struct employee *emp);
+void deleteRec(struct employee *emp);
+
 
 void init();
 void swap(struct employee *, struct employee *);
-void bubbleSort();
+void bubbleSortPhone();
 void bubbleSortName();
 void push(struct employee *);
 void freeList();

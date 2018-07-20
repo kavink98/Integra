@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <time.h>
+/*Verifies name and returns 0 if there are no intergers present and 1 if there is an error*/
 int verifyName(char *name)
 {
   int flag;
@@ -19,6 +20,14 @@ int verifyName(char *name)
   }
   return flag;
 }
+
+/*Verifies phone number and returns 1 if there is an Error
+*Error occurs if
+                1)There is a letter in the number
+                2)If there arent 10 digits in the numbers
+                3)If the first 5 digit of the number are lesser than 5
+
+*/
 int verifyPhone(char *phone)
 {
   int flag;
@@ -46,6 +55,7 @@ int verifyPhone(char *phone)
 
 }
 
+/*Verifies date and returns 1 if there is an Error*/
 int verifyDate(char *dd,char *mm,char *yy)
 {
   int flag;
@@ -70,7 +80,7 @@ int verifyDate(char *dd,char *mm,char *yy)
   flag = 0;
   return flag;
 }
-
+/*Verifies income and returns 1 if there is and error(charecter present)*/
 int verifyIncome(char *income)
 {
   int flag;
@@ -87,4 +97,3 @@ int verifyIncome(char *income)
   }
   return flag;
 }
-
