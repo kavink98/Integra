@@ -3,37 +3,41 @@
 
 void main()
 {
-    int choice;
+  char ch;
 	struct employee emp;
 	while(1)
 	{
-        printf("What do you want to do\n1.Input\n2.Read file\n3.Search\n4.Modify\n5.Sort\n6.Exit\n");
-        scanf("%d",&choice);
+        printf("\nWhat do you want to do\n1.Input\n2.Read file\n3.Search\n4.Modify\n5.Sort\n6.Delete\n7.Exit\n");
+        scanf("%c",&ch);
 
-        if(choice==1)
+        if(ch == '1')
             input(&emp);
 
-        else if (choice == 2)
+        else if (ch == '2')
              read(&emp);
 
-        else if(choice == 3)
+        else if(ch == '3')
             search(&emp);
 
-        else if(choice == 4)
+        else if(ch == '4')
             modify(&emp);
 
-        else if(choice == 5)
-  			sort(&emp);
+        else if(ch == '5')
+  			    sort(&emp);
 
+        else if(ch == '6')
+            deleteRec(&emp);
 
-        else if(choice == 6)
+        else if(ch == '7')
         {
             findLines();
             break;
         }
 
         else
-            printf("ENter Valid Input\n");
+            printf("Enter Valid Input\n");
+        ch = '\0';
+        getchar();
 
     }
 }
