@@ -1,15 +1,17 @@
 #include "common.h"
 
-/*Initialise a linked list by setting head to NULL*/
+/*************************************************
+Initialise a linked list by setting head to NULL
+**************************************************/
 void init()
 {
     head = NULL;
 }
 
-/*
+/************************************************
 Input: Employee Structure pointer
 Push the input into the start of the linked list
-*/
+************************************************/
 void push(struct employee *emp)
 {
     struct employee *p;
@@ -19,7 +21,9 @@ void push(struct employee *emp)
     head = p;
 }
 
-/*Sort the linked list by phone numbers*/
+/**************************************
+Sort the linked list by phone numbers
+***************************************/
 void bubbleSortPhone()
 {
     int swapped, i;
@@ -47,10 +51,10 @@ void bubbleSortPhone()
     while (swapped);
 }
 
-/*
+/****************************************************************************
 Input: Two Employee Structure pointers from a linked list
 Swap the contents of the two pointers whilst keeping the next pointer the same
-*/
+*****************************************************************************/
 void swap(struct employee *a, struct employee *b)
 {
     struct employee* temp1;
@@ -67,7 +71,9 @@ void swap(struct employee *a, struct employee *b)
 
 }
 
-/*Free the memory allocated for the linked list*/
+/**********************************************
+Free the memory allocated for the linked list
+***********************************************/
 void freeList()
 {
     struct employee* curr;
@@ -78,7 +84,9 @@ void freeList()
     }
 }
 
-/*Sort the linked list by name*/
+/*****************************
+Sort the linked list by name
+*****************************/
 void bubbleSortName()
 {
     int swapped, i;
