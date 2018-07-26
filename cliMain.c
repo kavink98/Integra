@@ -21,41 +21,41 @@ void main()
 
 	while(1)
 	{
-		printf("\nWhat do you want to do\n1.Input\n2.Read file\n3.Search\n4.Modify\n5.Sort\n6.Delete\n7.Exit\n");
+		printf("\nWhat do you want to do\n1Enroll\n2.Read Enrollments\n3.Search records\n4.Modify records\n5.Sort record \n6.Delete record\n7.Exit\n");
 		scanf("%c",&ch);
 
 		switch (ch)
 		{
-			case '1': 
+			case '1':
 				input(&emp) ;
 				break ;
 
-        
-			case '2': 
+
+			case '2':
 				read(&emp);
 				break ;
 
-			case '3': 
+			case '3':
 				search(&emp);
 				break ;
 
-			case '4': 
+			case '4':
 				modify(&emp);
 				break ;
 
-			case '5': 
+			case '5':
 				sort(&emp);
 				break ;
 
-			case '6': 
+			case '6':
 				deleteRec(&emp);
 				break ;
 
-			case '7': 
+			case '7':
 				findLines();
 				exit(0);
 				break ;
-			default : 
+			default :
 				printf("Enter Valid Input\n");
 				break ;
 		}

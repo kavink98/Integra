@@ -7,19 +7,19 @@ Reads a line of content from the file and writes onto the memory location pointe
 void readLine(struct employee *emp)
 {
 	fscanf(fp,"%[^|]|s",emp->name);
-	
+
 	fscanf(fp,"%[^|]|s",emp->phone);
-	
+
 	fscanf(fp,"%[^|]|s",emp->aadhar);
-	
+
 	fscanf(fp,"%[^|]|s",emp->dob.dd);
 	fscanf(fp,"%[^|]|s",emp->dob.mm);
 	fscanf(fp,"%[^|]|s",emp->dob.yy);
-	
+
 	fscanf(fp,"%[^|]|s",emp->address);
-	
+
 	fscanf(fp,"%[^|]|s",emp->occupation);
-	
+
 	fscanf(fp,"%[^|]|s",emp->m_status);
 
 	fscanf(fp,"%[^|]|s",emp->income);
@@ -33,12 +33,12 @@ void displayLine(struct employee *emp)
     printf("Name:%s\n",emp->name);
     printf("Phone no:%s\n",emp->phone);
     printf("Aadhar no:%s\n",emp->aadhar);
-	printf("DOB:%s/%s/%s\n",emp->dob.dd,emp->dob.mm,emp->dob.yy);
+		printf("DOB:%s/%s/%s\n",emp->dob.dd,emp->dob.mm,emp->dob.yy);
     printf("Address:%s\n",emp->address);
     printf("Occupation:%s\n",emp->occupation);
     printf("Marital status:%s\n",emp->m_status);
     printf("Income:%s\n",emp->income);
-	printf("\n");
+		printf("\n");
 }
 
 /*Finds the total no. of lines (Records) in the file*/
@@ -61,7 +61,7 @@ void input(struct employee *emp)
 {
 	int n,marital,err;
 
-	fp = fopen(FILE_NAME,"a");
+
 
 	printf("Enter the following details\n");
 
@@ -76,7 +76,7 @@ void input(struct employee *emp)
 		printf("Name\n");
 		getchar();
 		scanf("%[^\n]s",emp->name);
-	
+
     } while(verifyName(emp->name));
 
     /*
@@ -91,29 +91,34 @@ void input(struct employee *emp)
 		scanf("%s",emp->phone);
 
 	} while(verifyPhone(emp->phone));
-    
+
     /*
 		Prompt the user to enter Aadhar no.
 		Obtain the number from user
 		Validation for Aadhar no. is pending
     */
-    
-	printf("Aadhar no.\n");//INputting Aadhar Number
-	scanf("%s",emp->aadhar);
+
+	//INputting Aadhar Number
+	do
+	{
+		printf("Aadhar no.\n");
+		scanf("%s",emp->aadhar);
+	} while(!verifyAadhaar(emp->aadhar));
+
 
     /*
 		Prompt the user to enter date of birth in DD MM YYYY format
 		Obtain the DOB from user
 		Validate whether the user entered a valid name using the function verifyDate
 		Repeat the above steps until the user enters a valid DOB
-	*/    
+	*/
 	do
 	{
 		printf("Date of Birth in DD MM YYYY format\n");
 		scanf("%s%s%s",emp->dob.dd,emp->dob.mm,emp->dob.yy);
-	
+
     } while(verifyDate(emp->dob.dd,emp->dob.mm,emp->dob.yy));
-    
+
     /*
         Prompt the user to enter address
         Obtain the address
@@ -131,9 +136,9 @@ void input(struct employee *emp)
     {
 	   printf("Occupation \n");
 	   scanf("%[^\n]s",emp->occupation);
-    
+
     } while(verifyName(emp->occupation));
-	
+
     printf("Marital status\n1.Single\n2.Married\n3.Divorced\n");
 	scanf("%d",&marital);
 
@@ -142,11 +147,11 @@ void input(struct employee *emp)
         case(1):
             strcpy(emp->m_status,"Single");
             break;
-        
+
         case(2):
             strcpy(emp->m_status,"Married");
             break;
-        
+
         case(3):
             strcpy(emp->m_status,"Divorced");
             break;
@@ -161,9 +166,11 @@ void input(struct employee *emp)
 
 	} while(verifyIncome(emp->income));
 
-    write(emp);
+		fp = fopen(FILE_NAME,"a");
 
-    fclose(fp);
+		write(emp);
+
+		fclose(fp);
 }
 
 /*********************************************************
@@ -192,10 +199,10 @@ void write (struct employee *emp)
 	{
 		fprintf(fp,"%c",buf);
 	}
-	
+
 	fprintf(fp,"\n");
 }
-	
+
 /***********************************************************************
 Reads the contents of the file and prints required contents onto stdout
 ************************************************************************/
@@ -240,7 +247,7 @@ void search(struct employee *emp)
         fprintf(stderr,"\nError opend file\n");
 		exit(1);
 	}
-  
+
     int found = 0;
     printf("Enter name or phone number or aadhar number \n\n");
     getchar();
@@ -279,7 +286,7 @@ Modifies data of one line in the file
 **************************************/
 void modify(struct employee *emp)
 {
-    read(emp);
+    //read(emp);
     int n,marital,rec,entry;
     char buf=' ';
     fp = fopen(FILE_NAME,"r+");
@@ -388,7 +395,7 @@ Sorts the records present in the file by either phone or name
 void sort(struct employee* emp)
 {
     int numLines,choice;
-    struct employee *curr;  
+    struct employee *curr;
     numLines = findLines();
     fp = fopen("emp.dat","r+");
 
@@ -456,7 +463,7 @@ void deleteRec(struct employee* emp)
         fprintf(stderr,"\nError opening file\n");
         exit(1);
     }
-    
+
     init();
 
     for(int i=numLines-1;i>=0;i--)
@@ -466,11 +473,12 @@ void deleteRec(struct employee* emp)
         push(emp);
         fgetc(fp);
     }
-    
+
       fclose(fp);
-      remove("emp.dat");
+
       printf("Enter record to be deleted\n" );
-      scanf("%d",&choice );
+      scanf("%d",&choice);
+			remove("emp.dat");
       fp = fopen("emp.dat","w");
 
       curr = head;
